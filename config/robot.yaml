@@ -1,0 +1,19 @@
+# HumanCallRobot System Configuration
+
+robot:
+  id: "robot_01"
+  name: "HumanCallRobot"
+  wheel_radius: 0.1       # meters
+  track_width: 0.5        # meters
+  max_linear_vel: 0.5     # m/s
+  max_angular_vel: 1.0    # rad/s
+
+database:
+  db_path: "data/logs/robot_database.db"
+
+safety:
+  min_obstacle_distance: 0.3  # meters
+  emergency_stop_distance: 0.15 # meters
+
+rag_assistant:
+  docs_directory: "docs"
