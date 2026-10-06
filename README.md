@@ -64,24 +64,200 @@ The system combines real-time 2D grid A* pathfinding, differential drive kinemat
 
 ```
 HumanCallRobot/
-├── apps/               # Executable entry points (robot_main, navigation_node, perception_node, hardware_node)
-├── config/             # YAML configuration files (robot, navigation, safety)
-├── include/            # C++ Header files
-│   ├── behavior/       # RobotStateMachine
-│   ├── control/        # DifferentialDrive, PIDController
-│   ├── core/           # Types, Vector2D, Pose2D, Twist, DatabaseManager, Mutex
-│   ├── interaction/    # RAGEngineBridge
-│   ├── mapping/        # OccupancyGrid
-│   ├── navigation/     # AStarPlanner
-│   └── safety/         # SafetyMonitor
-├── src/                # C++ Source implementations
-├── ai/                 # Python AI modules (RAG engine, inference pipelines)
-├── docs/               # Documentation & RAG Knowledge Base (hospital_guide.md)
-├── scripts/            # Build & run scripts (.bat, .sh)
-├── tests/              # Unit test suites (test_core.cpp)
-├── CMakeLists.txt      # Root CMake configuration
-├── LICENSE             # MIT License
-└── README.md           # Project documentation
+│
+├── CMakeLists.txt
+├── README.md
+├── LICENSE
+├── .gitignore
+├── config/
+│   ├── robot.yaml
+│   ├── camera.yaml
+│   ├── lidar.yaml
+│   ├── navigation.yaml
+│   └── safety.yaml
+│
+├── docs/
+│   ├── system_architecture.md
+│   ├── software_architecture.md
+│   ├── communication_protocol.md
+│   ├── navigation_design.md
+│   └── ai_pipeline.md
+│
+├── include/
+│   ├── core/
+│   │   ├── Types.hpp
+│   │   ├── Pose2D.hpp
+│   │   ├── Vector2D.hpp
+│   │   ├── Twist.hpp
+│   │   ├── RobotState.hpp
+│   │   └── TargetState.hpp
+│   │
+│   ├── perception/
+│   │   ├── PersonDetector.hpp
+│   │   ├── PersonTracker.hpp
+│   │   ├── DepthEstimator.hpp
+│   │   ├── ObstacleDetector.hpp
+│   │   └── PerceptionManager.hpp
+│   │
+│   ├── interaction/
+│   │   ├── CallDetector.hpp
+│   │   ├── VoiceDetector.hpp
+│   │   ├── GestureDetector.hpp
+│   │   └── TargetSelector.hpp
+│   │
+│   ├── localization/
+│   │   ├── Odometry.hpp
+│   │   ├── IMUFusion.hpp
+│   │   ├── EKF.hpp
+│   │   └── LocalizationManager.hpp
+│   │
+│   ├── mapping/
+│   │   ├── OccupancyGrid.hpp
+│   │   ├── Costmap.hpp
+│   │   ├── LocalMap.hpp
+│   │   └── MapManager.hpp
+│   │
+│   ├── navigation/
+│   │   ├── GlobalPlanner.hpp
+│   │   ├── LocalPlanner.hpp
+│   │   ├── Path.hpp
+│   │   ├── Trajectory.hpp
+│   │   ├── PathFollower.hpp
+│   │   └── NavigationManager.hpp
+│   │
+│   ├── behavior/
+│   │   ├── RobotStateMachine.hpp
+│   │   ├── SearchBehavior.hpp
+│   │   ├── ApproachBehavior.hpp
+│   │   ├── FollowBehavior.hpp
+│   │   └── ArrivedBehavior.hpp
+│   │
+│   ├── control/
+│   │   ├── PIDController.hpp
+│   │   ├── VelocityController.hpp
+│   │   ├── DifferentialDrive.hpp
+│   │   └── MotionController.hpp
+│   │
+│   ├── hardware/
+│   │   ├── Camera.hpp
+│   │   ├── DepthCamera.hpp
+│   │   ├── LiDAR.hpp
+│   │   ├── IMU.hpp
+│   │   ├── Encoder.hpp
+│   │   ├── MotorDriver.hpp
+│   │   └── SerialInterface.hpp
+│   │
+│   └── safety/
+│       ├── EmergencyStop.hpp
+│       ├── CollisionGuard.hpp
+│       ├── SafetyMonitor.hpp
+│       └── SpeedLimiter.hpp
+│
+├── src/
+│   ├── core/
+│   ├── perception/
+│   ├── interaction/
+│   ├── localization/
+│   ├── mapping/
+│   ├── navigation/
+│   ├── behavior/
+│   ├── control/
+│   ├── hardware/
+│   └── safety/
+│
+├── ai/
+│   ├── models/
+│   │   ├── person_detector/
+│   │   ├── person_tracker/
+│   │   └── gesture_detector/
+│   │
+│   ├── training/
+│   │   ├── datasets/
+│   │   ├── train.py
+│   │   ├── evaluate.py
+│   │   └── export.py
+│   │
+│   └── inference/
+│       ├── detector.py
+│       ├── tracker.py
+│       └── inference_engine.py
+│
+├── hardware/
+│   ├── esp32/
+│   │   ├── motor_controller/
+│   │   ├── encoder_reader/
+│   │   └── firmware/
+│   │
+│   ├── sensors/
+│   │   ├── camera/
+│   │   ├── lidar/
+│   │   └── imu/
+│   │
+│   └── motor_driver/
+│
+├── maps/
+│   ├── test_environment/
+│   └── saved_maps/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   ├── recordings/
+│   └── logs/
+│
+
+
+
+
+
+
+
+
+
+
+
+
+├── tests/
+│   ├── unit/
+│   │   ├── test_geometry.cpp
+│   │   ├── test_pid.cpp
+│   │   ├── test_planner.cpp
+│   │   └── test_tracker.cpp
+│   │
+│   ├── integration/
+│   │   ├── test_perception_navigation.cpp
+│   │   ├── test_slam_navigation.cpp
+│   │   └── test_motor_control.cpp
+│   │
+│   └── simulation/
+│       ├── test_obstacle_avoidance.cpp
+│       └── test_human_following.cpp
+│
+├── simulation/
+│   ├── world/
+│   ├── robot/
+│   ├── sensors/
+│   └── scenarios/
+│
+├── tools/
+│   ├── camera_test/
+│   ├── lidar_visualizer/
+│   ├── map_visualizer/
+│   ├── trajectory_visualizer/
+│   └── dataset_tools/
+│
+├── apps/
+│   ├── robot_main.cpp
+│   ├── perception_node.cpp
+│   ├── navigation_node.cpp
+│   └── hardware_node.cpp
+│
+└── scripts/
+    ├── build.sh
+    ├── run_robot.sh
+    ├── run_simulation.sh
+    └── setup.sh
+
 ```
 
 ---
