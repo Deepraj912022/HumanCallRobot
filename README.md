@@ -205,18 +205,6 @@ HumanCallRobot/
 │   ├── recordings/
 │   └── logs/
 │
-
-
-
-
-
-
-
-
-
-
-
-
 ├── tests/
 │   ├── unit/
 │   │   ├── test_geometry.cpp
